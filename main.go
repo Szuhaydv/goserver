@@ -2,9 +2,24 @@ package main
 
 import (
 	"fmt"
-	// "net/http"
+	"log"
+	"net/http"
 )
 
+func handle(w http.ResponseWriter, r *http.Request) {
+	log.Println("Received a request at my domain")
+	w.Write([]byte("Hello, welcome to my project!"))
+}
+
 func main() {
-  fmt.Println("Hello, this is my new Golang Server Project")
+	router := http.NewServeMux()
+	router.HandleFunc("/home", handle)
+
+	server := http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
+
+	fmt.Println("Server listening on port :8080")
+	server.ListenAndServe()
 }
