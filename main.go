@@ -2,18 +2,13 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 )
 
-func handle(w http.ResponseWriter, r *http.Request) {
-	log.Println("Received a request at my domain")
-	w.Write([]byte("Hello, welcome to my project!"))
-}
-
 func main() {
 	router := http.NewServeMux()
-	router.HandleFunc("/home", handle)
+  
+  createRoutes(router)
 
 	server := http.Server{
 		Addr:    ":8080",
